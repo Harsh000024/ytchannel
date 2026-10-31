@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RACING BEAST | Official Channel Hub</title>
+  <meta name="description" content="Official website for @racingbeast8754 YouTube Channel. High-octane gaming, speedruns, and racing gameplay.">
+
+  <!-- Google Fonts: Orbitron & Rajdhani -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient Audio Synthesizer Canvas Background -->
+  <canvas id="warpCanvas"></canvas>
+  <div class="cyber-grid-overlay"></div>
+  <div class="scanlines"></div>
+
+  <!-- Main Cyber Shell -->
+  <div class="app-container">
+
+    <!-- TOP NAVIGATION HUD -->
+    <header class="hud-header">
+      <div class="hud-brand">
+        <div class="brand-glitch-wrapper">
+          <span class="brand-tag">SYS // V2.8</span>
+          <h1 class="brand-title" data-text="RACING BEAST">RACING BEAST</h1>
+          <span class="brand-sub">@racingbeast8754</span>
+        </div>
+      </div>
+
+      <!-- Telemetry Center -->
+      <div class="hud-telemetry">
+        <div class="telemetry-pill">
+          <span class="pulse-indicator"></span>
+          <span class="telemetry-label">TRANSMISSION:</span>
+          <span class="telemetry-value neon-cyan">LIVE FEED</span>
+        </div>
+        <div class="telemetry-pill rpm-pill">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span class="telemetry-label">BOOST:</span>
+          <span class="telemetry-value neon-red" id="rpmValue">9,400 RPM</span>
+        </div>
+        <div class="telemetry-pill">
+          <i class="fa-regular fa-clock"></i>
+          <span class="telemetry-label">SYS TIME:</span>
+          <span class="telemetry-value" id="hudClock">00:00:00</span>
+        </div>
+      </div>
+
+      <!-- Controls & Subscribe Action -->
+      <div class="hud-actions">
+        <!-- SFX Synthesizer Toggle -->
+        <button id="sfxToggle" class="hud-btn sfx-btn" title="Toggle Futuristic Cyber Audio">
+          <i class="fa-solid fa-volume-high"></i>
+          <span>SFX: ON</span>
+        </button>
+
+        <!-- Big Neon Subscribe Button -->
+        <a href="https://www.youtube.com/@racingbeast8754?sub_confirmation=1" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="subscribe-btn neon-pulse" 
+           id="subBtn">
+          <span class="btn-glitch-border"></span>
+          <i class="fa-brands fa-youtube sub-icon"></i>
+          <span class="btn-text">SUBSCRIBE</span>
+          <i class="fa-solid fa-bolt-lightning sub-spark"></i>
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO / THEATER STAGE -->
+    <main class="theater-section" id="theaterStage">
+      <div class="theater-glow-backdrop" id="ambientGlow"></div>
+      
+      <div class="theater-wrapper">
+        <!-- Top HUD Bar of Video Frame -->
+        <div class="screen-hud-top">
+          <div class="hud-corner-bracket top-left"></div>
+          <div class="hud-corner-bracket top-right"></div>
+          <div class="stream-info">
+            <span class="live-dot"></span>
+            <span class="stream-target">HUD://THEATER_DISPLAY</span>
+            <span class="stream-channel">[CH: RACING BEAST 8754]</span>
+          </div>
+          <div class="screen-controls">
+            <button id="theaterModeBtn" class="screen-tool-btn" title="Toggle Cinema Focus">
+              <i class="fa-solid fa-expand"></i> THEATER FOCUS
+            </button>
+            <a href="https://www.youtube.com/@racingbeast8754" target="_blank" rel="noopener noreferrer" class="screen-tool-btn yt-direct-btn">
+              <i class="fa-brands fa-youtube"></i> OPEN CHANNEL
+            </a>
+          </div>
+        </div>
+
+        <!-- The Video Screen Container -->
+        <div class="video-viewport">
+          <iframe 
+            id="mainPlayer" 
+            src="" 
+            title="Racing Beast Video Player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
+          <div class="player-scanline"></div>
+        </div>
+
+        <!-- Screen Meta HUD -->
+        <div class="screen-hud-bottom">
+          <div class="hud-corner-bracket bottom-left"></div>
+          <div class="hud-corner-bracket bottom-right"></div>
+          
+          <div class="active-video-details">
+            <div class="meta-tag-row">
+              <span class="badge category-badge" id="currentCategory">HIGHLIGHT RUN</span>
+              <span class="badge hd-badge"><i class="fa-solid fa-video"></i> 1080P 60FPS</span>
+              <span class="badge speed-badge"><i class="fa-solid fa-fire"></i> OVERDRIVE</span>
+            </div>
+            <h2 class="active-video-title" id="currentTitle">Select a video to initiate transmission</h2>
+            <p class="active-video-desc" id="currentDesc">Watch high-speed racing gameplay and runs from @racingbeast8754.</p>
+          </div>
+
+          <div class="active-video-actions">
+            <a id="watchOnYtBtn" href="https://www.youtube.com/@racingbeast8754" target="_blank" rel="noopener noreferrer" class="hud-btn glow-red">
+              <i class="fa-brands fa-youtube"></i> Watch on YouTube
+            </a>
+            <button id="shareVideoBtn" class="hud-btn glow-cyan">
+              <i class="fa-solid fa-share-nodes"></i> Share
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- STATS / CHANNEL HIGHLIGHT TICKER -->
+    <section class="telemetry-bar-grid">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-gamepad"></i></div>
+        <div class="stat-meta">
+          <span class="stat-label">PRIMARY CONTENT</span>
+          <span class="stat-val">RACING & GAMING</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-gauge"></i></div>
+        <div class="stat-meta">
+          <span class="stat-label">TRANSMISSION SPEED</span>
+          <span class="stat-val neon-cyan">340+ KM/H RUNS</span>
+        </div>
+      </div>
+
+      <div class="stat-card highlight-card">
+        <div class="stat-icon neon-red"><i class="fa-brands fa-youtube"></i></div>
+        <div class="stat-meta">
+          <span class="stat-label">CREATOR HUB</span>
+          <span class="stat-val">@racingbeast8754</span>
+        </div>
+        <a href="https://www.youtube.com/@racingbeast8754?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="mini-sub-btn">
+          SUB <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="stat-meta">
+          <span class="stat-label">CHANNEL STATUS</span>
+          <span class="stat-val neon-green">VERIFIED FEED</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO TRANSMISSION ARCHIVE (VIDEOS GRID) -->
+    <section class="gallery-section" id="videosSection">
+      <div class="gallery-header">
+        <div class="gallery-title-group">
+          <span class="section-tag">// ARCHIVE DECK</span>
+          <h3 class="section-title">CHANNEL TRANSMISSIONS</h3>
+          <p class="section-subtitle">Stream all exclusive videos directly from the @racingbeast8754 fleet.</p>
+        </div>
+
+        <!-- Filter & Search Console -->
+        <div class="gallery-controls">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search mission archives..." autocomplete="off">
+            <button id="clearSearch" class="clear-search-btn" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+
+          <button id="openAddModalBtn" class="hud-btn glow-purple" title="Add / Update your YouTube videos">
+            <i class="fa-solid fa-plus"></i> Add Video
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-filter="all">
+          <i class="fa-solid fa-list-check"></i> ALL VIDEOS (<span id="countAll">0</span>)
+        </button>
+        <button class="filter-tab" data-filter="asphalt">
+          <i class="fa-solid fa-car-side"></i> ASPHALT RUNS (<span id="countAsphalt">0</span>)
+        </button>
+        <button class="filter-tab" data-filter="speed">
+          <i class="fa-solid fa-bolt"></i> HIGH SPEED (<span id="countSpeed">0</span>)
+        </button>
+        <button class="filter-tab" data-filter="shorts">
+          <i class="fa-solid fa-mobile-screen"></i> SHORTS & CLIPS (<span id="countShorts">0</span>)
+        </button>
+      </div>
+
+      <!-- Videos Card Grid -->
+      <div class="video-grid" id="videoGrid">
+        <!-- Injected dynamically via app.js -->
+      </div>
+
+      <!-- Empty State Indicator -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <i class="fa-solid fa-radar empty-icon"></i>
+        <h4>NO TRANSMISSIONS DETECTED</h4>
+        <p>No video archives matched your current search parameters.</p>
+        <button id="resetFilterBtn" class="hud-btn glow-cyan">RESET FILTERS</button>
+      </div>
+    </section>
+
+    <!-- FOOTER / COMM STATUS -->
+    <footer class="hud-footer">
+      <div class="footer-brackets">
+        <div class="bracket-item">SYS: RACING_BEAST_OS // SECURE PROTOCOL</div>
+        <div class="bracket-item">HOSTED FOR @RACINGBEAST8754</div>
+      </div>
+
+      <div class="footer-center">
+        <div class="footer-brand">RACING BEAST</div>
+        <p class="footer-copy">All gameplay, media, and video transmissions are intellectual property of <a href="https://www.youtube.com/@racingbeast8754" target="_blank" rel="noopener noreferrer">@racingbeast8754</a>.</p>
+      </div>
+
+      <div class="footer-actions">
+        <a href="https://www.youtube.com/@racingbeast8754?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="footer-sub-link">
+          <i class="fa-brands fa-youtube"></i> JOIN THE CREW (SUBSCRIBE)
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ADD / MANAGE VIDEO MODAL -->
+  <div class="modal-backdrop" id="addVideoModal">
+    <div class="cyber-modal">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-tag">CONFIG // DECK</span>
+          <h4>REGISTER VIDEO TRANSMISSION</h4>
+        </div>
+        <button class="close-modal-btn" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="addVideoForm" class="modal-form">
+        <div class="form-group">
+          <label for="videoUrlInput"><i class="fa-brands fa-youtube"></i> YouTube URL or Video ID</label>
+          <input type="text" id="videoUrlInput" placeholder="e.g. https://youtu.be/xxxxxx or watch?v=xxxxxx" required>
+          <span class="input-hint">Paste any video link from your channel @racingbeast8754</span>
+        </div>
+
+        <div class="form-group">
+          <label for="videoTitleInput"><i class="fa-solid fa-heading"></i> Video Mission Title</label>
+          <input type="text" id="videoTitleInput" placeholder="e.g. Asphalt 8: Nitro Overdrive Finale" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half">
+            <label for="videoCategorySelect"><i class="fa-solid fa-tag"></i> Category / Mode</label>
+            <select id="videoCategorySelect">
+              <option value="asphalt">Asphalt Runs</option>
+              <option value="speed">High Speed</option>
+              <option value="shorts">Shorts & Clips</option>
+              <option value="highlight">Highlight Run</option>
+            </select>
+          </div>
+          <div class="form-group half">
+            <label for="videoDurationInput"><i class="fa-solid fa-stopwatch"></i> Duration (approx)</label>
+            <input type="text" id="videoDurationInput" placeholder="e.g. 04:25">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="videoDescInput"><i class="fa-solid fa-file-lines"></i> Mission Brief / Description</label>
+          <textarea id="videoDescInput" rows="2" placeholder="Brief info about the run..."></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="hud-btn" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="hud-btn glow-red" id="saveVideoBtn">
+            <i class="fa-solid fa-floppy-disk"></i> Add to Transmissions
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-hub" id="toastHub"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
